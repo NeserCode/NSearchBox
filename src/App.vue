@@ -1,30 +1,40 @@
+<script setup>
+import onSearch from "./views/onSearch.vue";
+import { ipcRenderer } from "electron";
+
+// ipc message listener
+ipcRenderer.on("app-toggle-dark-mode", () => {
+  toggleAppDarkMode();
+  console.log("ipc:app-toggle-dark-mode");
+});
+
+function toggleAppDarkMode(option) {
+  let html = document.querySelector("html");
+  if (option === "light") html.classList.remove("dark");
+  else if (option === "dark") html.classList.add("dark");
+  else if (html.classList.contains("dark")) html.classList.remove("dark");
+  else html.classList.add("dark");
+}
+</script>
+
+
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <div class="appContainer">
+    <on-search />
+  </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
+<style lang="postcss" scoped>
+.appContainer {
+  @apply w-full h-full border rounded overflow-hidden
+  border-gray-400 dark:border-gray-500;
 }
 </style>
+
+<style lang="postcss">
+html,
+body {
+  @apply m-0 p-0 box-border overflow-hidden;
+}
+</style>
+
