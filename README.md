@@ -1,2 +1,2 @@
-# atmo-tools
-Use atmo to code some tools.
+# atom-tools
+Use atom（electron） to code some tools.
