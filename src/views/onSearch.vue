@@ -1,19 +1,25 @@
 <script setup>
-import { ref, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import { ipcRenderer } from "electron";
+const remote = require("@electron/remote");
 
 const input = ref(null);
 
 // ipc message listener
 ipcRenderer.on("app-get-focus", () => {
+  remote.getCurrentWindow().show();
   input.value.focus();
   console.log("ipc:app-get-focus");
 });
 ipcRenderer.on("app-get-blur", () => {
+  remote.getCurrentWindow().hide();
   input.value.blur();
   console.log("ipc:app-get-blur");
 });
 
+onMounted(() => {
+  input.value.focus();
+});
 onUnmounted(() => {
   input.value.blur();
 });

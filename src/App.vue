@@ -1,5 +1,6 @@
 <script setup>
 import onSearch from "./views/onSearch.vue";
+import { onBeforeMount } from "vue";
 import { ipcRenderer } from "electron";
 
 // ipc message listener
@@ -14,7 +15,17 @@ function toggleAppDarkMode(option) {
   else if (option === "dark") html.classList.add("dark");
   else if (html.classList.contains("dark")) html.classList.remove("dark");
   else html.classList.add("dark");
+
+  localStorage.setItem(
+    "atom_tools_colorModeScheme",
+    html.classList.contains("dark") ? "dark" : "light"
+  );
 }
+
+onBeforeMount(() => {
+  toggleAppDarkMode(localStorage.getItem("atom_tools_colorModeScheme"));
+  console.log(localStorage.getItem("atom_tools_colorModeScheme"));
+});
 </script>
 
 

@@ -4,7 +4,7 @@ module.exports = defineConfig({
   assetsDir: 'assets',
   pluginOptions: {
     electronBuilder: {
-      nodeIntegration: true
+      nodeIntegration: true,
     }
   }
 })
