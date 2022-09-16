@@ -38,7 +38,7 @@ onBeforeMount(() => {
 <style lang="postcss" scoped>
 .appContainer {
   @apply w-full h-full border rounded overflow-hidden
-  border-gray-400 dark:border-gray-500;
+  bg-transparent border-gray-400 dark:border-gray-500;
 }
 </style>
 

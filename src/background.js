@@ -33,7 +33,8 @@ async function createWindow() {
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
       enableRemoteModule: true,
 
-      spellcheck: false
+      spellcheck: false,
+      experimentalFeatures: true,
     },
   })
 

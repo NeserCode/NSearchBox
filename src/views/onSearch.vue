@@ -40,9 +40,9 @@ onUnmounted(() => {
 }
 
 .search-input-body {
-  @apply w-full h-full px-4
+  @apply w-full h-full px-4 outline-none
   bg-gray-100 dark:bg-gray-900 text-3xl text-gray-500 dark:text-gray-300
-  outline-none box-border caret-slate-400;
+  bg-opacity-80 dark:bg-opacity-80 backdrop-blur-md box-border caret-slate-400;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 </style>
