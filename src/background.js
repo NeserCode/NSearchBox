@@ -20,7 +20,6 @@ async function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
     width: 840,
-    height: 66,
     transparent: true,
     frame: false,
     resizable: false,
@@ -48,7 +47,8 @@ async function createWindow() {
     win.show()
   })
   globalShortcut.register('CommandOrControl+D', () => {
-    win.webContents.send('app-toggle-dark-mode')
+    if (win.isFocused())
+      win.webContents.send('app-toggle-dark-mode')
   })
 
   win.on('focus', () => {
@@ -56,7 +56,7 @@ async function createWindow() {
   })
   win.on('blur', () => {
     win.webContents.send('app-get-blur')
-    win.hide()
+    // win.hide()
   })
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
