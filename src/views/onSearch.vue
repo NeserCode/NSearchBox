@@ -1,4 +1,5 @@
 <script setup>
+import SearchListItem from "../components/SearchListItem.vue";
 import { ref, onMounted, onUnmounted } from "vue";
 import { ipcRenderer } from "electron";
 const remote = require("@electron/remote");
@@ -18,6 +19,7 @@ ipcRenderer.on("app-get-focus", () => {
       getCurrentWindowSize().width,
       getCurrentHtmlSize(document.body).height
     );
+  console.log(getCurrentHtmlSize(document.body));
 
   console.log("ipc:app-get-focus");
 });
@@ -27,8 +29,14 @@ ipcRenderer.on("app-get-blur", () => {
   console.log("ipc:app-get-blur");
 });
 
+const listItem = ref([
+  { title: 1, id: 1 },
+  { title: 2, id: 2 },
+]);
+
 onMounted(() => {
   input.value.focus();
+  console.log(listItem);
 });
 onUnmounted(() => {
   input.value.blur();
@@ -38,13 +46,14 @@ onUnmounted(() => {
 <template>
   <div class="search-main">
     <input class="search-input-body" type="text" ref="input" />
+    <search-list-item :item="listItem" />
   </div>
 </template>
 
 <style lang="postcss" scoped>
 .search-main {
   -webkit-app-region: drag;
-  @apply w-full h-16;
+  @apply w-full h-full;
 }
 
 .search-input-body {
