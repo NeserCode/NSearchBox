@@ -24,7 +24,6 @@ function toggleAppDarkMode(option) {
 
 onBeforeMount(() => {
   toggleAppDarkMode(localStorage.getItem("atom_tools_colorModeScheme"));
-  console.log(localStorage.getItem("atom_tools_colorModeScheme"));
 });
 </script>
 
@@ -38,7 +37,7 @@ onBeforeMount(() => {
 <style lang="postcss" scoped>
 .appContainer {
   @apply w-full h-full border rounded overflow-hidden
-  bg-transparent border-gray-400 dark:border-gray-500;
+  border-gray-500 dark:border-gray-700 bg-transparent;
 }
 </style>
 

@@ -2,7 +2,7 @@
 
 import path from 'path'
 import {
-  app, protocol, BrowserWindow, globalShortcut, Tray, Menu, nativeImage
+  app, protocol, BrowserWindow, globalShortcut, Tray, Menu, nativeImage, global
 } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 // import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
@@ -20,6 +20,7 @@ async function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
     width: 840,
+    height: 66,
     transparent: true,
     frame: false,
     resizable: false,
@@ -108,7 +109,9 @@ app.on('ready', async () => {
   //     console.error('Vue Devtools failed to install:', e.toString())
   //   }
   // }
-  createWindow()
+  createWindow().then(() => {
+    win.webContents.send('app-get-focus')
+  })
 })
 
 // Exit cleanly on request from parent process in development mode.

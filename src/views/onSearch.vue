@@ -6,6 +6,11 @@ const remote = require("@electron/remote");
 
 import { getCurrentWindowSize } from "../utils/getCurrentWindowSize";
 import { getCurrentHtmlSize } from "../utils/getCurrentHtmlSize";
+import {
+  getCurrentWindowPosition,
+  localStorageWindowPosition,
+  getLocalStorageWindowPosition,
+} from "../utils/getCurrentWindowPosition";
 
 const input = ref(null);
 
@@ -19,8 +24,9 @@ ipcRenderer.on("app-get-focus", () => {
       getCurrentWindowSize().width,
       getCurrentHtmlSize(document.body).height
     );
-  console.log(getCurrentHtmlSize(document.body));
 
+  // 记录窗口位置并存储 atom_tools_position_x/y
+  localStorageWindowPosition(getCurrentWindowPosition());
   console.log("ipc:app-get-focus");
 });
 ipcRenderer.on("app-get-blur", () => {
@@ -29,24 +35,26 @@ ipcRenderer.on("app-get-blur", () => {
   console.log("ipc:app-get-blur");
 });
 
-const listItem = ref([
-  { title: 1, id: 1 },
-  { title: 2, id: 2 },
-]);
-
 onMounted(() => {
   input.value.focus();
-  console.log(listItem);
 });
 onUnmounted(() => {
   input.value.blur();
 });
+
+// create hook set position
+remote
+  .getCurrentWindow()
+  .setPosition(
+    getLocalStorageWindowPosition().x,
+    getLocalStorageWindowPosition().y
+  );
 </script>
 
 <template>
   <div class="search-main">
     <input class="search-input-body" type="text" ref="input" />
-    <search-list-item :item="listItem" />
+    <search-list-item />
   </div>
 </template>
 
@@ -57,9 +65,9 @@ onUnmounted(() => {
 }
 
 .search-input-body {
-  @apply w-full h-full px-4 outline-none
+  @apply w-full h-16 px-4 outline-none
   bg-gray-100 dark:bg-gray-900 text-3xl text-gray-500 dark:text-gray-300
-  box-border caret-slate-400
+  border-gray-400 dark:border-gray-500 border box-border rounded caret-slate-400
   transition-all;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
