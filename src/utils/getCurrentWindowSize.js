@@ -6,3 +6,7 @@ export function getCurrentWindowSize() {
     height: remote.getCurrentWindow().getSize()[1]
   }
 }
+
+export function initResizeObserver(cb) {
+  return new ResizeObserver(cb)
+}

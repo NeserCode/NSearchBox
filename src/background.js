@@ -2,7 +2,7 @@
 
 import path from 'path'
 import {
-  app, protocol, BrowserWindow, globalShortcut, Tray, Menu, nativeImage, global
+  app, protocol, BrowserWindow, globalShortcut, Tray, ipcMain, nativeImage,
 } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 // import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
@@ -20,11 +20,12 @@ async function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
     width: 840,
-    height: 66,
+    height: 64,
     transparent: true,
     frame: false,
     resizable: false,
     center: false,
+    useContentSize: true,
     webPreferences: {
 
       // Use pluginOptions.nodeIntegration, leave this alone
@@ -42,7 +43,8 @@ async function createWindow() {
     win.reload()
   })
   globalShortcut.register('CommandOrControl+E', () => {
-    win.openDevTools()
+    if (win.isFocused())
+      win.openDevTools()
   })
   globalShortcut.register('CommandOrControl+Space', () => {
     win.show()
@@ -58,6 +60,12 @@ async function createWindow() {
   win.on('blur', () => {
     win.webContents.send('app-get-blur')
     // win.hide()
+  })
+
+  // resize here
+  ipcMain.on('app-resize', (e, computedSize) => {
+    win.setSize(computedSize.width, computedSize.height)
+    console.log('resized', computedSize.height);
   })
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
