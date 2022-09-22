@@ -43,7 +43,7 @@ onBeforeMount(() => {
 <style lang="postcss">
 html,
 body {
-  @apply m-0 p-0 box-border;
+  @apply m-0 p-0 box-border overflow-hidden;
 }
 </style>
 

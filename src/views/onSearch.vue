@@ -55,10 +55,6 @@ const resizeOb = initResizeObserver(() => {
     width: getCurrentWindowSize().width,
     height: getCurrentHtmlSize(document.body).height,
   });
-  console.log({
-    width: getCurrentWindowSize().width,
-    height: getCurrentHtmlSize(document.body).height,
-  });
 });
 
 onMounted(() => {

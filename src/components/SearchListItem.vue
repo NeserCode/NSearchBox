@@ -27,12 +27,7 @@ searchOptions.sort((a, b) => a.power - b.power);
     <div class="search-list-item" v-for="i in item" :key="i.id">
       <span class="title">{{ i.title }}</span>
     </div>
-    <div
-      class="search-list-item"
-      v-for="s in searchOptions"
-      :key="s.id"
-      v-show="!isSearchOptionsVisable"
-    >
+    <div class="search-list-item" v-for="s in searchOptions" :key="s.id">
       <span class="title">{{ s.title }}</span>
       <span class="search-text">{{ searchText }}</span>
     </div>
