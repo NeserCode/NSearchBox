@@ -37,7 +37,7 @@ function onSearchPressKey(busData) {
   if (busData.code === "Enter") {
     const { urlPrefix } = generateOptions[activedItemId.value];
     openSearchResult(urlPrefix);
-  }
+  } else console.log(busData.code);
 }
 
 $Bus.on("on-press-key", onSearchPressKey);

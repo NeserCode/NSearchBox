@@ -87,7 +87,7 @@ function onKey(event) {
       ref="input"
       placeholder=""
       @input="onInput"
-      @keypress="onKey"
+      @keydown="onKey"
     />
     <search-list-item :searchText="inputValue" />
   </div>
