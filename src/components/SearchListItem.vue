@@ -19,19 +19,24 @@ const isSearchOptionsVisable = computed(() => {
 });
 searchOptions.sort((a, b) => a.power - b.power);
 
-function openSearchResult(urlPrefix, s) {
-  shell.openExternal(`${urlPrefix}${s}`);
-  console.log(`openExternal: ${urlPrefix}${s}`);
+function openSearchResult(urlPrefix) {
+  shell.openExternal(`${urlPrefix}${searchText.value}`);
+  console.log(`openExternal: ${urlPrefix}${searchText.value}`);
 }
 
 const generateOptions = [...(item.value ?? []), ...searchOptions];
 const activedItemId = ref(0);
 import { $Bus } from "../utils/mitt";
 
+// import { $Fonts } from "../utils/getFontList";
+// $Fonts.then((res) => {
+//   console.log(res);
+// });
+
 function onSearchPressKey(busData) {
   if (busData.code === "Enter") {
     const { urlPrefix } = generateOptions[activedItemId.value];
-    openSearchResult(urlPrefix, searchText.value);
+    openSearchResult(urlPrefix);
   }
 }
 
@@ -50,7 +55,7 @@ $Bus.on("on-press-key", onSearchPressKey);
       class="search-list-item"
       v-for="s in searchOptions"
       :key="s.id"
-      @click="openSearchResult(s.urlPrefix, searchText)"
+      @click="openSearchResult(s.urlPrefix)"
     >
       <span class="title">{{ s.title }}</span>
       <span class="search-text">{{ searchText }}</span>
