@@ -9,5 +9,10 @@ export const searchOptions = [
     title: '必应 Bing',
     urlPrefix: 'https://cn.bing.com/search?q=',
     power: 1
+  }, {
+    id: 3,
+    title: 'GitHub 搜索',
+    urlPrefix: 'https://github.com/search?q=',
+    power: 2
   }
 ]

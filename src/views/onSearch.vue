@@ -68,6 +68,14 @@ onUnmounted(() => {
 const inputValue = ref("");
 
 function onInput() {}
+
+import { $Bus } from "../utils/mitt";
+function onKey(event) {
+  $Bus.emit("on-press-key", {
+    text: event.code === "Enter" ? "Enter this" : "",
+    code: event.code,
+  });
+}
 </script>
 
 <template>
@@ -79,6 +87,7 @@ function onInput() {}
       ref="input"
       placeholder=""
       @input="onInput"
+      @keypress="onKey"
     />
     <search-list-item :searchText="inputValue" />
   </div>
@@ -86,7 +95,6 @@ function onInput() {}
 
 <style lang="postcss" scoped>
 .search-main {
-  -webkit-app-region: drag;
   @apply w-full h-full;
 }
 
