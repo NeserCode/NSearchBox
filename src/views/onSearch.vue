@@ -104,13 +104,13 @@ function onKey(event) {
 .dragArea {
   -webkit-app-region: drag;
   @apply absolute w-6 h-12 top-2 right-2 rounded
-  bg-neutral-200 dark:bg-neutral-500
+  bg-neutral-300 dark:bg-neutral-500
   transition-all cursor-move;
 }
 
 .search-input-body {
-  @apply w-full h-16 px-4 outline-none
-  bg-gray-100 dark:bg-gray-900 text-3xl text-gray-500 dark:text-gray-300
+  @apply w-full h-16 px-4 pr-10 outline-none
+  bg-gray-100 dark:bg-gray-900 text-2xl text-gray-500 dark:text-gray-300
   border-gray-400 dark:border-gray-500 border box-border rounded caret-slate-400
   duration-300 transition-all;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
