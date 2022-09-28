@@ -71,12 +71,32 @@ const inputValue = ref("");
 function onInput() {}
 
 import { $Bus } from "../utils/mitt";
+import { messageQueue } from "../utils/messageQueue";
 
-function onKey(event) {
+const keyQueue = new messageQueue([]);
+function onKeydown(event) {
   $Bus.emit("on-press-key", {
     text: event.code === "Enter" ? "Enter this" : "",
     code: event.code,
   });
+  keyQueue.joinQueue({
+    trigger: true,
+    key: event.code,
+    timeStamp: event.timeStamp,
+  });
+}
+
+function onKeyup(event) {
+  $Bus.emit("up-press-key", {
+    code: event.code,
+    event,
+  });
+  keyQueue.joinQueue({
+    trigger: false,
+    key: event.code,
+    timeStamp: event.timeStamp,
+  });
+  console.log(keyQueue.getMapedTime("Backspace"));
 }
 </script>
 
@@ -87,9 +107,10 @@ function onKey(event) {
       v-model="inputValue"
       type="text"
       ref="input"
-      placeholder=""
+      placeholder="Hi uTools"
       @input="onInput"
-      @keydown="onKey"
+      @keydown="onKeydown"
+      @keyup="onKeyup"
     />
     <div class="dragArea" />
     <search-list-item :searchText="inputValue" />
@@ -113,6 +134,5 @@ function onKey(event) {
   bg-gray-100 dark:bg-gray-900 text-2xl text-gray-500 dark:text-gray-300
   border-gray-400 dark:border-gray-500 border box-border rounded caret-slate-400
   duration-300 transition-all;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 </style>
