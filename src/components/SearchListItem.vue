@@ -81,6 +81,7 @@ $Bus.on("on-press-key", onSearchPressKey);
   @apply text-xl font-semibold;
 }
 .search-list-item .search-text {
-  @apply text-sm;
+  @apply text-sm text-slate-700 dark:text-slate-300 text-opacity-50 dark:text-opacity-50
+  whitespace-nowrap overflow-ellipsis overflow-hidden;
 }
 </style>

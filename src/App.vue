@@ -36,7 +36,7 @@ onBeforeMount(() => {
 
 <style lang="postcss" scoped>
 .appContainer {
-  @apply w-full h-full rounded-t bg-transparent overflow-hidden;
+  @apply w-full h-full pr-6 rounded-t bg-transparent overflow-hidden;
 }
 </style>
 

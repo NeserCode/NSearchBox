@@ -29,6 +29,7 @@ ipcRenderer.on("app-get-focus", () => {
 ipcRenderer.on("app-get-blur", () => {
   // remote.getCurrentWindow().hide();
   input.value.blur();
+
   // 记录窗口位置并存储 atom_tools_position_x/y
   localStorageWindowPosition(getCurrentWindowPosition());
   console.log("ipc:app-get-blur");
@@ -70,6 +71,7 @@ const inputValue = ref("");
 function onInput() {}
 
 import { $Bus } from "../utils/mitt";
+
 function onKey(event) {
   $Bus.emit("on-press-key", {
     text: event.code === "Enter" ? "Enter this" : "",
@@ -89,13 +91,21 @@ function onKey(event) {
       @input="onInput"
       @keydown="onKey"
     />
+    <div class="dragArea" />
     <search-list-item :searchText="inputValue" />
   </div>
 </template>
 
 <style lang="postcss" scoped>
 .search-main {
-  @apply w-full h-full;
+  @apply relative w-full h-full;
+}
+
+.dragArea {
+  -webkit-app-region: drag;
+  @apply absolute w-6 h-12 top-2 right-2 rounded
+  bg-neutral-200 dark:bg-neutral-500
+  transition-all cursor-move;
 }
 
 .search-input-body {
