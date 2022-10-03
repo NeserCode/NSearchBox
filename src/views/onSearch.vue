@@ -76,13 +76,12 @@ import { messageQueue } from "../utils/messageQueue";
 const keyQueue = new messageQueue([]);
 function onKeydown(event) {
   $Bus.emit("on-press-key", {
-    text: event.code === "Enter" ? "Enter this" : "",
     code: event.code,
+    event,
   });
   keyQueue.joinQueue({
     trigger: true,
     key: event.code,
-    timeStamp: event.timeStamp,
   });
 }
 
@@ -94,9 +93,7 @@ function onKeyup(event) {
   keyQueue.quitQueue({
     trigger: false,
     key: event.code,
-    timeStamp: event.timeStamp,
   });
-  console.log(keyQueue);
 }
 </script>
 
