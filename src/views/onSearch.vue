@@ -91,12 +91,12 @@ function onKeyup(event) {
     code: event.code,
     event,
   });
-  keyQueue.joinQueue({
+  keyQueue.quitQueue({
     trigger: false,
     key: event.code,
     timeStamp: event.timeStamp,
   });
-  console.log(keyQueue.getMapedTime("Backspace"));
+  console.log(keyQueue);
 }
 </script>
 
