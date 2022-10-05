@@ -1,5 +1,7 @@
 <script setup>
 import SearchListItem from "../components/SearchListItem.vue";
+import Setting from "./onSetting.vue";
+
 import { ref, onMounted, onUnmounted } from "vue";
 import { ipcRenderer } from "electron";
 const remote = require("@electron/remote");
@@ -72,8 +74,10 @@ function onInput() {}
 
 import { $Bus } from "../utils/mitt";
 import { messageQueue } from "../utils/messageQueue";
+import { computed } from "vue";
 
 const keyQueue = new messageQueue([]);
+const isHoldSetting = ref(false);
 function onKeydown(event) {
   $Bus.emit("on-press-key", {
     code: event.code,
@@ -95,6 +99,14 @@ function onKeyup(event) {
     key: event.code,
   });
 }
+
+$Bus.on("app-hold-setting", () => {
+  isHoldSetting.value = inputValue.value === "" && true;
+});
+
+const isSettingShow = computed(() => {
+  return inputValue.value === "" && isHoldSetting.value;
+});
 </script>
 
 <template>
@@ -110,7 +122,8 @@ function onKeyup(event) {
       @keyup="onKeyup"
     />
     <div class="dragArea" />
-    <search-list-item :searchText="inputValue" />
+    <search-list-item :searchText="inputValue" :isSettingShow="isSettingShow" />
+    <setting v-show="isSettingShow" />
   </div>
 </template>
 

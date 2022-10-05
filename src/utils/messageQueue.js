@@ -1,3 +1,5 @@
+import { $Bus } from './mitt'
+
 export class messageQueue {
 
   /*
@@ -19,8 +21,10 @@ export class messageQueue {
     if (element.key === 'Backspace' && element.trigger === true) {
       if (this.counterMap.get('Backspace') === undefined)
         this.counterMap.set('Backspace', 'press')
-      else if (this.counterMap.get('Backspace') === 'press')
+      else if (this.counterMap.get('Backspace') === 'press') {
         this.counterMap.set('Backspace', 'hold')
+        $Bus.emit('app-hold-setting', true)
+      }
     }
   }
 
@@ -30,10 +34,8 @@ export class messageQueue {
       if (this.messageQueue.get(element.key) === !element.trigger)
         this.messageQueue.delete(element.key)
 
-
-    if (element.key === 'Backspace' && element.trigger === false) {
-      console.log(this.counterMap.get('Backspace'));
+    if (element.key === 'Backspace' && element.trigger === false)
       this.counterMap.delete('Backspace')
-    }
+
   }
 }

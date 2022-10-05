@@ -11,11 +11,15 @@ const $props = defineProps({
     type: String,
     default: "",
   },
+  isSettingShow: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const { item, searchText } = toRefs($props);
+const { item, searchText, isSettingShow } = toRefs($props);
 const isSearchOptionsVisable = computed(() => {
-  return searchText.value === "";
+  return searchText.value === "" || !isSettingShow;
 });
 searchOptions.sort((a, b) => a.power - b.power);
 

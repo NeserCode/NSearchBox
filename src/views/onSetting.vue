@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <div class="setting-main">setting</div>
+  <div class="setting-main">⚙</div>
 </template>
 
 <style lang="postcss" scoped>
