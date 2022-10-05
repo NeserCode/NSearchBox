@@ -42,7 +42,7 @@ import { $Bus } from "../utils/mitt";
 
 function onSearchPressKey(busData) {
   function up(x, min, max) {
-    return x - 1 < min ? max : x - 1;
+    return x - 1 < min ? max - 1 : x - 1;
   }
   function down(x, min, max) {
     return x + 1 >= max ? min : x + 1;
@@ -56,6 +56,7 @@ function onSearchPressKey(busData) {
       busData.code === "ArrowUp"
         ? up(activedItemId.value, 0, generateOptions.length)
         : down(activedItemId.value, 0, generateOptions.length);
+    console.log(activedItemId.value);
   } else console.log(busData.code);
 }
 
