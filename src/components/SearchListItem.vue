@@ -104,4 +104,9 @@ $Bus.on("on-press-key", onSearchPressKey);
   @apply text-sm text-slate-700 dark:text-slate-300 text-opacity-70 dark:text-opacity-70
   whitespace-nowrap overflow-ellipsis overflow-hidden;
 }
+
+/* search-list-item */
+.search-list-item.active {
+  @apply bg-slate-200 dark:bg-slate-700 text-blue-400 dark:text-green-400;
+}
 </style>
