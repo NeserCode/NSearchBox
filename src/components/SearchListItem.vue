@@ -30,6 +30,9 @@ function openSearchResult(urlPrefix) {
 
 const generateOptions = [...(item.value ?? []), ...searchOptions];
 const activedItemId = ref(0);
+const computedActiveClass = computed(() => (index) => {
+  return index === activedItemId.value ? "active" : null;
+});
 import { $Bus } from "../utils/mitt";
 
 // import { $Fonts } from "../utils/getFontList";
@@ -38,9 +41,21 @@ import { $Bus } from "../utils/mitt";
 // });
 
 function onSearchPressKey(busData) {
+  function up(x, min, max) {
+    return x - 1 < min ? max : x - 1;
+  }
+  function down(x, min, max) {
+    return x + 1 >= max ? min : x + 1;
+  }
+
   if (busData.code === "Enter") {
     const { urlPrefix } = generateOptions[activedItemId.value];
     openSearchResult(urlPrefix);
+  } else if (busData.code === "ArrowUp" || busData.code === "ArrowDown") {
+    activedItemId.value =
+      busData.code === "ArrowUp"
+        ? up(activedItemId.value, 0, generateOptions.length)
+        : down(activedItemId.value, 0, generateOptions.length);
   } else console.log(busData.code);
 }
 
@@ -52,12 +67,12 @@ $Bus.on("on-press-key", onSearchPressKey);
     :class="['items-container', isSearchOptionsVisable ? '' : 'active']"
     v-show="!isSearchOptionsVisable"
   >
-    <div class="search-list-item" v-for="i in item" :key="i.id">
+    <!-- <div class="search-list-item" v-for="i in item" :key="i.id">
       <span class="title">{{ i.title }}</span>
-    </div>
+    </div> -->
     <div
-      class="search-list-item"
-      v-for="s in searchOptions"
+      :class="['search-list-item', computedActiveClass(index)]"
+      v-for="(s, index) in searchOptions"
       :key="s.id"
       @click="openSearchResult(s.urlPrefix)"
     >
@@ -70,13 +85,13 @@ $Bus.on("on-press-key", onSearchPressKey);
 
 <style lang="postcss" scoped>
 .items-container {
-  @apply flex flex-col mt-px box-border overflow-x-hidden overflow-y-auto
-  border-t border-slate-300 dark:border-slate-500;
+  @apply flex flex-col mt-0.5 rounded box-border overflow-x-hidden overflow-y-auto
+  border-t border-slate-300 dark:border-slate-500 max-h-96;
 }
 
 /* search-list-item */
 .search-list-item {
-  @apply flex flex-col w-full py-2 px-4
+  @apply flex flex-col w-full py-2 px-4 rounded
   border border-t-0 border-slate-300 dark:border-slate-500
   bg-slate-100 text-slate-700 dark:bg-slate-900 dark:text-slate-300
   transition-all cursor-pointer;
