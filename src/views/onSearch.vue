@@ -70,7 +70,12 @@ onUnmounted(() => {
 // input value
 const inputValue = ref("");
 
-function onInput() {}
+function onInput() {
+  // 输入内容时关闭设置
+  if (inputValue.value.length === 0) {
+    isHoldSetting.value = false;
+  }
+}
 
 import { $Bus } from "../utils/mitt";
 import { messageQueue } from "../utils/messageQueue";
@@ -101,7 +106,8 @@ function onKeyup(event) {
 }
 
 $Bus.on("app-hold-setting", () => {
-  isHoldSetting.value = inputValue.value === "" && true;
+  if (isHoldSetting.value) isHoldSetting.value = false;
+  else isHoldSetting.value = inputValue.value === "";
 });
 
 const isSettingShow = computed(() => {
