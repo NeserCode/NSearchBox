@@ -1,4 +1,5 @@
 <script setup>
+import SettingItem from "../components/SettingItem.vue";
 import { searchOptions } from "../utils/searchOptions";
 
 // const computedSearchOptionsJson = JSON.stringify(searchOptions);
@@ -7,11 +8,11 @@ import { searchOptions } from "../utils/searchOptions";
 <template>
   <div class="setting-main">
     <span>⚙ Testing the setting view.</span>
-    <div v-for="option in searchOptions" :key="option.id">
-      <span>Name {{ option.title }}</span>
-      <hr />
-      <span>prefix {{ option.urlPrefix }}</span>
-    </div>
+    <setting-item
+      v-for="option in searchOptions"
+      :key="option.id"
+      :settingOption="option"
+    />
   </div>
 </template>
 

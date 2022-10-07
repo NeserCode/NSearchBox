@@ -83,7 +83,6 @@ $Bus.on("on-press-key", onSearchPressKey);
   </div>
 </template>
 
-
 <style lang="postcss" scoped>
 .items-container {
   @apply flex flex-col mt-0.5 rounded box-border overflow-x-hidden overflow-y-auto
