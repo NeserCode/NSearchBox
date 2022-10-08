@@ -1,5 +1,6 @@
 <script setup>
-import { defineProps, toRefs } from "vue";
+import { defineProps, toRefs, reactive, provide } from "vue";
+import { SettingItemKey } from "../tokens/settingItem";
 
 const $props = defineProps({
   settingOption: {
@@ -7,14 +8,12 @@ const $props = defineProps({
     required: true,
   },
 });
-const { settingOption } = toRefs($props);
+provide(SettingItemKey, reactive({ ...toRefs($props) }));
 </script>
 
 <template>
   <div class="setting-item-container">
-    <span>Name {{ settingOption.title }}</span>
-    <br />
-    <span>prefix {{ settingOption.urlPrefix }}</span>
+    <slot />
   </div>
 </template>
 

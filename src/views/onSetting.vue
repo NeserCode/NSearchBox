@@ -1,5 +1,6 @@
 <script setup>
 import SettingItem from "../components/SettingItem.vue";
+import SearchOption from "../components/SearchOption.vue";
 import { searchOptions } from "../utils/searchOptions";
 
 // const computedSearchOptionsJson = JSON.stringify(searchOptions);
@@ -12,7 +13,9 @@ import { searchOptions } from "../utils/searchOptions";
       v-for="option in searchOptions"
       :key="option.id"
       :settingOption="option"
-    />
+    >
+      <search-option />
+    </setting-item>
   </div>
 </template>
 
