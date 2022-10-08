@@ -29,7 +29,7 @@ const bindPower = ref(settingOption.power);
 
 <style lang="postcss" scoped>
 .search-option-main {
-  @apply inline-flex flex-col w-full h-full py-2;
+  @apply inline-flex flex-col w-full h-full py-2 px-4;
 }
 .title-space,
 .power-space {
@@ -42,8 +42,15 @@ const bindPower = ref(settingOption.power);
 
 /* input style */
 .inp {
-  @apply bg-transparent border-b focus:border-blue-400
-  text-center
+  @apply mx-2 h-full py-0.5
+  bg-transparent border-b focus:border-blue-400
   transition-all outline-none;
+}
+
+.power-space .inp {
+  @apply w-6 text-center;
+}
+.prefix-space .inp {
+  @apply w-3/5;
 }
 </style>
