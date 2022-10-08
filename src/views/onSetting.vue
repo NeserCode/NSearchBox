@@ -3,6 +3,11 @@ import SettingItem from "../components/SettingItem.vue";
 import SearchOption from "../components/SearchOption.vue";
 import { searchOptions } from "../utils/searchOptions";
 
+import { computed } from "vue";
+const isSearchOptionsShow = computed(() => (option) => {
+  return option.type === "searchOption";
+});
+
 // const computedSearchOptionsJson = JSON.stringify(searchOptions);
 </script>
 
@@ -14,7 +19,7 @@ import { searchOptions } from "../utils/searchOptions";
       :key="option.id"
       :settingOption="option"
     >
-      <search-option />
+      <search-option v-if="isSearchOptionsShow(option)" />
     </setting-item>
   </div>
 </template>
