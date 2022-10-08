@@ -37,7 +37,7 @@ const bindPower = ref(settingOption.power);
 }
 
 .short-space {
-  @apply py-1.5;
+  @apply inline-flex py-1.5;
 }
 
 /* input style */
