@@ -51,6 +51,6 @@ const bindPower = ref(settingOption.power);
   @apply w-6 text-center;
 }
 .prefix-space .inp {
-  @apply w-3/5;
+  @apply w-3/5 text-start;
 }
 </style>
