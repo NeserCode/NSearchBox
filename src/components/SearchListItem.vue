@@ -1,6 +1,7 @@
 <script setup>
 import { computed, defineProps, toRefs, ref } from "vue";
 import { shell } from "electron";
+import { $Bus } from "../utils/mitt";
 import { searchOptions } from "../utils/searchOptions";
 
 const $props = defineProps({
@@ -33,7 +34,6 @@ const activedItemId = ref(0);
 const computedActiveClass = computed(() => (index) => {
   return index === activedItemId.value ? "active" : null;
 });
-import { $Bus } from "../utils/mitt";
 
 // import { $Fonts } from "../utils/getFontList";
 // $Fonts.then((res) => {

@@ -1,4 +1,5 @@
 <script setup>
+import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import SettingItem from "../components/SettingItem.vue";
 import SearchOption from "../components/SearchOption.vue";
 import { searchOptions } from "../utils/searchOptions";
@@ -14,13 +15,26 @@ const isSearchOptionsShow = computed(() => (option) => {
 <template>
   <div class="setting-main">
     <span>⚙ Testing the setting view.</span>
-    <setting-item
+    <TabGroup>
+    <TabList>
+      <Tab>Search Options</Tab>
+      <Tab>Tab 2</Tab>
+      <Tab>Tab 3</Tab>
+    </TabList>
+    <TabPanels>
+      <TabPanel>
+        <setting-item
       v-for="option in searchOptions"
       :key="option.id"
       :settingOption="option"
     >
       <search-option v-if="isSearchOptionsShow(option)" />
     </setting-item>
+      </TabPanel>
+      <TabPanel>Content 2</TabPanel>
+      <TabPanel>Content 3</TabPanel>
+    </TabPanels>
+  </TabGroup>
   </div>
 </template>
 
