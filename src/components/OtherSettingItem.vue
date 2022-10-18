@@ -11,14 +11,21 @@ const bindBound = ref(otherSettingOptions.bound)
 
 <template>
 	<div class="other-setting-item-main">
-		<div class="item body">
+		<div class="item-body">
 			<span class="text-area">
 				<span class="item-label">{{ bindLabel }}</span>
 				<span class="item-desc">{{ bindDesc }}</span>
 			</span>
-			<switch-item :bound="bindBound" />
+			<switch-item class="switch" :bound="bindBound" />
 		</div>
 	</div>
 </template>
 
-<style lang="postcss" scoped></style>
+<style lang="postcss" scoped>
+.other-setting-item-main {
+	@apply inline-flex justify-center items-center w-full h-full;
+}
+.item-body {
+	@apply inline-flex justify-around w-96 px-4 py-2;
+}
+</style>
