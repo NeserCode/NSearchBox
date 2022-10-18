@@ -1,8 +1,9 @@
 <script setup>
-import { inject } from "vue"
-import { SettingItemKey } from "../tokens/settingItem"
+// import { inject } from "vue"
+// import { SettingItemKey } from "../tokens/settingItem"
 
-const { settingOption } = inject(SettingItemKey, undefined)
+// const { settingOption } = inject(SettingItemKey, undefined)
+// console.log(settingOption)
 </script>
 
 <template>

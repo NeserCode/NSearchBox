@@ -3,26 +3,47 @@ import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue"
 import SettingItem from "../components/SettingItem.vue"
 import SearchOption from "../components/SearchOption.vue"
 import { searchOptions } from "../utils/searchOptions"
+import AboutItem from "../components/AboutItem.vue"
+import OtherSettingItem from "../components/OtherSettingItem.vue"
 
 import { ref, computed } from "vue"
-const isSearchOptionsShow = computed(() => (option) => {
-	return option.type === "searchOption"
+const isSearchSettingOptionsShow = computed(() => (option) => {
+	return option.type === "searchSettingOption"
+})
+const isOtherSettingOptionsShow = computed(() => (option) => {
+	return option.type === "otherSettingOption"
 })
 
 const categories = ref({
-	searchOption: {
+	searchSettingOption: {
 		id: "1",
 		name: "搜索设置",
 	},
-	keyOption: {
+	otherSettingOption: {
 		id: "2",
-		name: "快捷键设置",
+		name: "其他",
 	},
 	about: {
 		id: "3",
 		name: "关于",
 	},
 })
+const otherSettingOptions = ref([
+	{
+		id: 1,
+		bound: true,
+		label: "一言 Hiotoko",
+		desc: "是否启用一言？",
+		type: "otherSettingOption",
+	},
+	{
+		id: 2,
+		bound: false,
+		label: "窗口置顶",
+		desc: "是否使本窗口置顶？",
+		type: "otherSettingOption",
+	},
+])
 
 const computedSelectedCategoryBtnClass = computed(() => (selected) => {
 	return selected ? "actived" : null
@@ -53,20 +74,22 @@ const computedSelectedCategoryBtnClass = computed(() => (selected) => {
 					<setting-item
 						v-for="option in searchOptions"
 						:key="option.id"
-						:settingOption="option"
+						:searchSettingOption="option"
 					>
-						<search-option v-if="isSearchOptionsShow(option)" />
+						<search-option v-if="isSearchSettingOptionsShow(option)" />
 					</setting-item>
 				</TabPanel>
-				<TabPanel class="categoryPanel">Content 2</TabPanel>
 				<TabPanel class="categoryPanel">
 					<setting-item
-						v-for="option in searchOptions"
+						v-for="option in otherSettingOptions"
 						:key="option.id"
-						:settingOption="option"
+						:otherSettingOptions="option"
 					>
-						<search-option v-if="isSearchOptionsShow(option)" />
+						<other-setting-item v-if="isOtherSettingOptionsShow(option)" />
 					</setting-item>
+				</TabPanel>
+				<TabPanel class="categoryPanel">
+					<about-item></about-item>
 				</TabPanel>
 			</TabPanels>
 		</TabGroup>
