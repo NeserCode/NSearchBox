@@ -2,11 +2,14 @@
 import SwitchItem from "./SwitchItem.vue"
 import { ref, inject } from "vue"
 import { SettingItemKey } from "../tokens/settingItem"
+import { getAppDataPath } from "../utils/getPath"
 
 const { otherSettingOptions } = inject(SettingItemKey, undefined)
 const bindLabel = ref(otherSettingOptions.label)
 const bindDesc = ref(otherSettingOptions.desc)
 const bindBound = ref(otherSettingOptions.bound)
+
+console.log(getAppDataPath())
 </script>
 
 <template>
