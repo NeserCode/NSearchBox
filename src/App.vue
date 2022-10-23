@@ -1,9 +1,8 @@
 <script setup>
 import onSearch from "./views/onSearch.vue"
-import { onBeforeMount, onMounted, provide, reactive } from "vue"
+import { onBeforeMount } from "vue"
 import Axios from "axios"
 import { ipcRenderer } from "electron"
-import { HitokotoKey } from "./tokens/Hitokoto"
 import { $Bus } from "./utils/mitt"
 
 // ipc message listener
@@ -27,22 +26,18 @@ function toggleAppDarkMode(option) {
 
 onBeforeMount(() => {
 	toggleAppDarkMode(localStorage.getItem("atom_tools_colorModeScheme"))
-	let $axios = new Axios.create({
-		baseURL: "https://v1.hitokoto.cn",
-		timeout: 10000,
-	})
-	$axios.get("/?c=d&c=i").then((res) => {
-		provide(
-			HitokotoKey,
-			reactive({
-				...res.data,
-			})
-		)
-		$Bus.emit("atom_tools_hitokoto")
-	})
 })
 
-onMounted(() => {})
+const $axios = new Axios.create({
+	baseURL: "https://v1.hitokoto.cn",
+	timeout: 10000,
+})
+
+$axios.get("/?c=d&c=i").then((res) => {
+	$Bus.emit("atom_tools_hitokoto", {
+		...res.data,
+	})
+})
 </script>
 
 <template>
