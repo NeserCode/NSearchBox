@@ -21,7 +21,7 @@ const categories = ref({
 	},
 	otherSettingOption: {
 		id: "2",
-		name: "其他",
+		name: "其他设置",
 	},
 	about: {
 		id: "3",

@@ -25,7 +25,18 @@ const bindBound = ref(otherSettingOptions.bound)
 .other-setting-item-main {
 	@apply inline-flex justify-center items-center w-full h-full;
 }
+
 .item-body {
-	@apply inline-flex justify-around w-96 px-4 py-2;
+	@apply inline-flex justify-between w-full px-4 py-2
+	select-none;
+}
+.text-area {
+	@apply inline-flex flex-col justify-center items-start;
+}
+.item-label {
+	@apply text-base;
+}
+.item-desc {
+	@apply text-sm text-gray-500;
 }
 </style>
