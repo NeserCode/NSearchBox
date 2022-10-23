@@ -4,6 +4,7 @@ import { onBeforeMount, onMounted, provide, reactive } from "vue"
 import Axios from "axios"
 import { ipcRenderer } from "electron"
 import { HitokotoKey } from "./tokens/Hitokoto"
+import { $Bus } from "./utils/mitt"
 
 // ipc message listener
 ipcRenderer.on("app-toggle-dark-mode", () => {
@@ -26,23 +27,22 @@ function toggleAppDarkMode(option) {
 
 onBeforeMount(() => {
 	toggleAppDarkMode(localStorage.getItem("atom_tools_colorModeScheme"))
-})
-
-onMounted(() => {
 	let $axios = new Axios.create({
 		baseURL: "https://v1.hitokoto.cn",
 		timeout: 10000,
 	})
 	$axios.get("/?c=d&c=i").then((res) => {
-		console.log(res.data)
 		provide(
 			HitokotoKey,
 			reactive({
 				...res.data,
 			})
 		)
+		$Bus.emit("atom_tools_hitokoto")
 	})
 })
+
+onMounted(() => {})
 </script>
 
 <template>
