@@ -33,7 +33,7 @@ const $axios = new Axios.create({
 	timeout: 10000,
 })
 
-$axios.get("/?c=d&c=i").then((res) => {
+$axios.get("/?c=i").then((res) => {
 	$Bus.emit("atom_tools_hitokoto", {
 		...res.data,
 	})

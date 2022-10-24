@@ -5,8 +5,17 @@ import SearchOption from "../components/SearchOption.vue"
 import { searchOptions } from "../utils/searchOptions"
 import AboutItem from "../components/AboutItem.vue"
 import OtherSettingItem from "../components/OtherSettingItem.vue"
+import { getConfig } from "../utils/getConfig"
 
-import { ref, computed } from "vue"
+import { ref, computed, onMounted } from "vue"
+
+onMounted(() => {
+	// getConfig().then((conf) => {
+	// 	console.log(conf)
+	// })
+	console.log(getConfig())
+})
+
 const isSearchSettingOptionsShow = computed(() => (option) => {
 	return option.type === "searchSettingOption"
 })
