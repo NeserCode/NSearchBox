@@ -11,7 +11,7 @@ import {
 	localStorageWindowPosition,
 	getLocalStorageWindowPosition,
 } from "../utils/getCurrentWindowPosition"
-import { ref, toRefs, onMounted, onUnmounted } from "vue"
+import { ref, onMounted, onUnmounted } from "vue"
 import { ipcRenderer } from "electron"
 
 import { $Bus } from "../utils/mitt"
@@ -20,8 +20,8 @@ import { computed } from "vue"
 
 const pHer = ref("Hi Atom Tools")
 $Bus.on("atom_tools_hitokoto", (hitokoto_obj) => {
-	const { hitokoto } = toRefs(hitokoto_obj)
-	pHer.value = hitokoto.value
+	const { hitokoto } = hitokoto_obj
+	pHer.value = hitokoto
 })
 
 const remote = require("@electron/remote")

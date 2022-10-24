@@ -7,14 +7,9 @@ import AboutItem from "../components/AboutItem.vue"
 import OtherSettingItem from "../components/OtherSettingItem.vue"
 import { getConfig } from "../utils/getConfig"
 
-import { ref, computed, onMounted } from "vue"
+import { ref, computed } from "vue"
 
-onMounted(() => {
-	// getConfig().then((conf) => {
-	// 	console.log(conf)
-	// })
-	console.log(getConfig())
-})
+const LOCAL_CONFIG = ref(getConfig())
 
 const isSearchSettingOptionsShow = computed(() => (option) => {
 	return option.type === "searchSettingOption"
@@ -40,14 +35,14 @@ const categories = ref({
 const otherSettingOptions = ref([
 	{
 		id: 1,
-		bound: true,
+		bound: LOCAL_CONFIG.value.enableHitokoto,
 		label: "一言 Hiotoko",
 		desc: "是否启用一言？",
 		type: "otherSettingOption",
 	},
 	{
 		id: 2,
-		bound: false,
+		bound: LOCAL_CONFIG.value.enableAlwaysOnTop,
 		label: "窗口置顶",
 		desc: "是否使本窗口置顶？",
 		type: "otherSettingOption",
