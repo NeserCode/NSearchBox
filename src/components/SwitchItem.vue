@@ -1,6 +1,7 @@
 <script setup>
 import { Switch } from "@headlessui/vue"
-import { defineProps, computed, ref, toRefs, onMounted } from "vue"
+import { defineProps, computed, watch, ref, toRefs } from "vue"
+import { $Bus } from "../utils/mitt"
 
 const enabled = ref(false)
 const computedSwitchClass = computed(() => (bool) => {
@@ -12,11 +13,19 @@ const $props = defineProps({
 		type: Boolean,
 		required: true,
 	},
+	settingLabel: {
+		type: String,
+		required: true,
+	},
 })
-const { bound } = toRefs($props)
-onMounted(() => {
-	enabled.value = bound.value
-	console.log(bound.value)
+const { bound, settingLabel } = toRefs($props)
+enabled.value = bound.value
+
+watch(enabled, (newVal) => {
+	$Bus.emit("update-config", {
+		key: settingLabel.value,
+		value: newVal,
+	})
 })
 </script>
 

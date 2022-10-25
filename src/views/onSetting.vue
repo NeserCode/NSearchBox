@@ -5,7 +5,8 @@ import SearchOption from "../components/SearchOption.vue"
 import { searchOptions } from "../utils/searchOptions"
 import AboutItem from "../components/AboutItem.vue"
 import OtherSettingItem from "../components/OtherSettingItem.vue"
-import { getConfig } from "../utils/getConfig"
+import { getConfig, saveConfig } from "../utils/getConfig"
+import { $Bus } from "../utils/mitt"
 
 import { ref, computed } from "vue"
 
@@ -39,6 +40,7 @@ const otherSettingOptions = ref([
 		label: "一言 Hiotoko",
 		desc: "是否启用一言？",
 		type: "otherSettingOption",
+		settingName: "enableHitokoto",
 	},
 	{
 		id: 2,
@@ -46,8 +48,32 @@ const otherSettingOptions = ref([
 		label: "窗口置顶",
 		desc: "是否使本窗口置顶？",
 		type: "otherSettingOption",
+		settingName: "enableAlwaysOnTop",
 	},
 ])
+
+function getLabelIndex(data) {
+	return otherSettingOptions.value.findIndex(
+		(option) => option.label === data.key
+	)
+}
+
+function getSettingName(index) {
+	return otherSettingOptions.value[index].settingName
+}
+
+function reloadOptions() {
+	LOCAL_CONFIG.value = getConfig()
+	otherSettingOptions.value.forEach((option) => {
+		option.bound = LOCAL_CONFIG.value[option.settingName]
+	})
+}
+
+$Bus.on("update-config", (data) => {
+	LOCAL_CONFIG.value[getSettingName(getLabelIndex(data))] = data.value
+	saveConfig(LOCAL_CONFIG.value)
+	reloadOptions()
+})
 
 const computedSelectedCategoryBtnClass = computed(() => (selected) => {
 	return selected ? "actived" : null

@@ -2,14 +2,11 @@
 import SwitchItem from "./SwitchItem.vue"
 import { ref, inject } from "vue"
 import { SettingItemKey } from "../tokens/settingItem"
-import { getAppDataPath } from "../utils/getPath"
 
 const { otherSettingOptions } = inject(SettingItemKey, undefined)
 const bindLabel = ref(otherSettingOptions.label)
 const bindDesc = ref(otherSettingOptions.desc)
 const bindBound = ref(otherSettingOptions.bound)
-
-console.log(getAppDataPath())
 </script>
 
 <template>
@@ -19,7 +16,11 @@ console.log(getAppDataPath())
 				<span class="item-label">{{ bindLabel }}</span>
 				<span class="item-desc">{{ bindDesc }}</span>
 			</span>
-			<switch-item class="switch" :bound="bindBound" />
+			<switch-item
+				class="switch"
+				:bound="bindBound"
+				:settingLabel="bindLabel"
+			/>
 		</div>
 	</div>
 </template>
@@ -37,9 +38,9 @@ console.log(getAppDataPath())
 	@apply inline-flex flex-col justify-center items-start;
 }
 .item-label {
-	@apply text-base;
+	@apply text-base font-semibold;
 }
 .item-desc {
-	@apply text-sm text-gray-500;
+	@apply text-sm text-gray-400 dark:text-gray-500;
 }
 </style>
