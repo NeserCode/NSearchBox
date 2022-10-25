@@ -17,12 +17,23 @@ import { ipcRenderer } from "electron"
 import { $Bus } from "../utils/mitt"
 import { messageQueue } from "../utils/messageQueue"
 import { computed } from "vue"
+import { getConfig } from "../utils/getConfig"
+
+const LOCAL_CONFIG = ref(getConfig())
 
 const pHer = ref("Hi Atom Tools")
-$Bus.on("atom_tools_hitokoto", (hitokoto_obj) => {
-	const { hitokoto } = hitokoto_obj
-	pHer.value = hitokoto
-})
+
+$Bus.on(
+	"atom_tools_hitokoto",
+	LOCAL_CONFIG.value.enableHitokoto
+		? (hitokoto_obj) => {
+				const { hitokoto } = hitokoto_obj
+				pHer.value = LOCAL_CONFIG.value.enableHitokoto
+					? hitokoto
+					: "Hi Atom Tools"
+		  }
+		: () => {}
+)
 
 const remote = require("@electron/remote")
 
