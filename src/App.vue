@@ -4,6 +4,9 @@ import { onBeforeMount } from "vue"
 import Axios from "axios"
 import { ipcRenderer } from "electron"
 import { $Bus } from "./utils/mitt"
+import { getConfig } from "./utils/getConfig"
+
+const LOCAL_CONFIG = getConfig()
 
 // ipc message listener
 ipcRenderer.on("app-toggle-dark-mode", () => {
@@ -28,16 +31,19 @@ onBeforeMount(() => {
 	toggleAppDarkMode(localStorage.getItem("atom_tools_colorModeScheme"))
 })
 
-const $axios = new Axios.create({
-	baseURL: "https://v1.hitokoto.cn",
-	timeout: 10000,
-})
+LOCAL_CONFIG.enableHitokoto &&
+	(function () {
+		const $axios = new Axios.create({
+			baseURL: "https://v1.hitokoto.cn",
+			timeout: 10000,
+		})
 
-$axios.get("/?c=i").then((res) => {
-	$Bus.emit("atom_tools_hitokoto", {
-		...res.data,
-	})
-})
+		$axios.get("/?c=i").then((res) => {
+			$Bus.emit("atom_tools_hitokoto", {
+				...res.data,
+			})
+		})
+	})()
 </script>
 
 <template>
