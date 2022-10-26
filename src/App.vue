@@ -31,6 +31,7 @@ onBeforeMount(() => {
 	toggleAppDarkMode(localStorage.getItem("atom_tools_colorModeScheme"))
 })
 
+// Inital hitokoto
 LOCAL_CONFIG.enableHitokoto &&
 	(function () {
 		const $axios = new Axios.create({
@@ -44,6 +45,8 @@ LOCAL_CONFIG.enableHitokoto &&
 			})
 		})
 	})()
+// Inital always on top
+ipcRenderer.send("app-on-top", LOCAL_CONFIG.enableAlwaysOnTop)
 </script>
 
 <template>

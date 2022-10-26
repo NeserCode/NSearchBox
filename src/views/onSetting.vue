@@ -73,6 +73,7 @@ $Bus.on("update-config", (data) => {
 	LOCAL_CONFIG.value[getSettingName(getLabelIndex(data))] = data.value
 	saveConfig(LOCAL_CONFIG.value)
 	reloadOptions()
+	$Bus.emit("reload-config", LOCAL_CONFIG.value)
 })
 
 const computedSelectedCategoryBtnClass = computed(() => (selected) => {

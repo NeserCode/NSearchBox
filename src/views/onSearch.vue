@@ -21,19 +21,24 @@ import { getConfig } from "../utils/getConfig"
 
 const LOCAL_CONFIG = ref(getConfig())
 
-const pHer = ref("Hi Atom Tools")
+const pHer = ref("Hi NSearch")
 
 $Bus.on(
 	"atom_tools_hitokoto",
 	LOCAL_CONFIG.value.enableHitokoto
 		? (hitokoto_obj) => {
 				const { hitokoto } = hitokoto_obj
-				pHer.value = LOCAL_CONFIG.value.enableHitokoto
-					? hitokoto
-					: "Hi Atom Tools"
+				pHer.value = LOCAL_CONFIG.value.enableHitokoto ? hitokoto : "Hi NSearch"
 		  }
 		: () => {}
 )
+
+$Bus.on("reload-config", (config) => {
+	// enable hitokoto ?
+	pHer.value = config.enableHitokoto ? pHer.value : "Hi NSearch"
+	// app always on top ?
+	ipcRenderer.send("app-on-top", config.enableAlwaysOnTop)
+})
 
 const remote = require("@electron/remote")
 

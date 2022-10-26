@@ -67,6 +67,11 @@ async function createWindow() {
     win.setSize(computedSize.width, computedSize.height)
     console.log('resized', computedSize.height);
   })
+  // always on top here
+  ipcMain.on('app-on-top', (e, isOnTop) => {
+    win.setAlwaysOnTop(isOnTop)
+    console.log('set top', isOnTop);
+  })
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
