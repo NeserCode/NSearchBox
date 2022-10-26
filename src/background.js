@@ -42,9 +42,11 @@ async function createWindow() {
   globalShortcut.register('CommandOrControl+Q', () => {
     win.reload()
   })
+  globalShortcut.register('Escape', () => {
+    if (win.isFocused()) win.hide()
+  })
   globalShortcut.register('CommandOrControl+E', () => {
-    if (win.isFocused())
-      win.openDevTools()
+    if (win.isFocused()) win.openDevTools()
   })
   globalShortcut.register('CommandOrControl+Space', () => {
     win.show()
@@ -59,7 +61,7 @@ async function createWindow() {
   })
   win.on('blur', () => {
     win.webContents.send('app-get-blur')
-    // win.hide()
+    win.hide()
   })
 
   // resize here
