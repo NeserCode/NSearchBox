@@ -50,8 +50,7 @@ function onSearchPressKey(busData) {
 
 	if (busData.code === "Enter") {
 		const { urlPrefix } = generateOptions[activedItemId.value]
-		openSearchResult(urlPrefix)
-		searchText.value = ""
+		if (searchText.value.trim() !== "") openSearchResult(urlPrefix)
 	} else if (busData.code === "ArrowUp" || busData.code === "ArrowDown") {
 		activedItemId.value =
 			busData.code === "ArrowUp"

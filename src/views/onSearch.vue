@@ -56,6 +56,8 @@ ipcRenderer.on("app-get-focus", () => {
 ipcRenderer.on("app-get-blur", () => {
 	// remote.getCurrentWindow().hide();
 	input.value.blur()
+	// clear search text
+	inputValue.value = ""
 
 	// 记录窗口位置并存储 atom_tools_position_x/y
 	localStorageWindowPosition(getCurrentWindowPosition())
