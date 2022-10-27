@@ -87,7 +87,7 @@ async function createWindow() {
 }
 
 app.whenReady().then(() => {
-  trayIcon = nativeImage.createFromPath(path.resolve(__dirname, '../public/N.orange.png'));
+  trayIcon = nativeImage.createFromPath(path.resolve(__dirname, '../public/N.normal.png'));
 
   tray = new Tray(trayIcon)
   tray.setToolTip('NSearchBox')
