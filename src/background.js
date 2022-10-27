@@ -87,11 +87,11 @@ async function createWindow() {
 }
 
 app.whenReady().then(() => {
-  trayIcon = nativeImage.createFromPath(path.resolve(__dirname, '../public/vue.logo.png'));
+  trayIcon = nativeImage.createFromPath(path.resolve(__dirname, '../public/N.orange.png'));
 
   tray = new Tray(trayIcon)
-  tray.setToolTip('This is my application')
-  tray.setTitle('This is my title')
+  tray.setToolTip('NSearchBox')
+  tray.setTitle('NSearchBox')
   tray.on('click', () => {
     win.show()
   })
