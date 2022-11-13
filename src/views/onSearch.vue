@@ -81,7 +81,7 @@ remote
 
 // create hook set size
 const resizeOb = initResizeObserver(() => {
-	ipcRenderer.send("app-resize", {
+	ipcRenderer.sendSync("app-resize", {
 		width: getCurrentWindowSize().width,
 		height: getCurrentHtmlSize(document.body).height,
 	})
