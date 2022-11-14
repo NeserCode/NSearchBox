@@ -65,8 +65,8 @@ async function createWindow() {
   })
 
   // resize here
-  ipcMain.on('app-resize', (e, computedSize) => {
-    win.setSize(computedSize.width, computedSize.height)
+  ipcMain.on('app-resize', async (e, computedSize) => {
+    e.returnValue = await win.setSize(computedSize.width, computedSize.height)
     console.log('resized', computedSize.height);
   })
   // always on top here
