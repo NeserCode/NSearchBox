@@ -14,7 +14,7 @@ protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } }
 ])
 
-let win, tray, trayIcon, isClickingTrayIcon = false;
+let win, tray, trayIcon;
 
 async function createWindow() {
   // Create the browser window.
@@ -61,7 +61,6 @@ async function createWindow() {
   })
   win.on('blur', () => {
     win.webContents.send('app-get-blur')
-    // if (!isClickingTrayIcon) win.hide()
   })
 
   // resize here
